@@ -5,6 +5,27 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>Oaf</PackageId>
+    <Version>0.0.1-preview1</Version>
+    <Authors>Ron Brogan</Authors>
+    <Company>OpenBlam</Company>
+    <PackageTags>Microsoft;Azure;Azure Functions;Functions;AspNetCore</PackageTags>
+    <Description>
+      This library aims to allow transparent hosting of an AspNetCore application on Azure Functions.
+      This is experimental and not intended for production usage.
+    </Description>
+    <PackageProjectUrl>https://github.com/ronbrogan/Oaf</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ronbrogan/Oaf</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="build/Oaf.props" Pack="true" PackagePath="build/Oaf.props" />
+    <Content Include="build/Oaf.targets" Pack="true" PackagePath="build/Oaf.targets" />
+    <Content Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />

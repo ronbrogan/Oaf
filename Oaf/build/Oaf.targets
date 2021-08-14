@@ -1,0 +1,26 @@
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Sdk="Microsoft.NET.Sdk.Web" Project="Sdk.targets" Condition="'$(OafPublish)' != ''" />
+  
+  <Target Name="OafInfo" BeforeTargets="Publish" Condition="'$(OafPublish)' == ''">
+    <Message Importance="high" Text="To publish a project, publish with a specific RID and define a MSBuild property 'OafPublish' (any non-empty value). The output will be a non-standalone R2R app with local runtime dependencies co-located" />
+  </Target>
+
+  <!-- Publishing with our settings causes the worker.config.json to have the incorrect exe path -->
+  <Target Name="FixupWorkerConfig" AfterTargets="_WorkerExtensionsPublish">
+    <Message Condition="Exists('$(PublishDir)\worker.config.json')" Importance="high" Text="Fixing worker.config.json in $(PublishDir)" />
+    <WriteLinesToFile Condition="Exists('$(PublishDir)\worker.config.json')"
+      File="$(PublishDir)\worker.config.json" Overwrite="true" Lines="$([System.IO.File]::ReadAllText($(PublishDir)\worker.config.json).Replace('{WorkerRoot}$(TargetName)', 'dotnet'))" />
+  </Target>
+  <Target Name="FixupWorkerConfig2" AfterTargets="Build">
+    <Message Condition="Exists('$(TargetDir)\worker.config.json')" Importance="high" Text="Fixing worker.config.json in $(TargetDir)" />
+    <WriteLinesToFile Condition="Exists('$(TargetDir)\worker.config.json')"
+      File="$(TargetDir)\worker.config.json" Overwrite="true" Lines="$([System.IO.File]::ReadAllText($(TargetDir)\worker.config.json).Replace('{WorkerRoot}$(TargetName)', 'dotnet'))" />
+  </Target>
+  <Target Name="FixupWorkerConfig3" BeforeTargets="CreateZipFile">
+    <Message Condition="Exists('$(PublishDir)\worker.config.json')" Importance="high" Text="Fixing worker.config.json in $(PublishDir)" />
+    <WriteLinesToFile Condition="Exists('$(PublishDir)\worker.config.json')"
+      File="$(PublishDir)\worker.config.json" Overwrite="true" Lines="$([System.IO.File]::ReadAllText($(PublishDir)\worker.config.json).Replace('{WorkerRoot}$(TargetName)', 'dotnet'))" />
+  </Target>
+
+</Project>
