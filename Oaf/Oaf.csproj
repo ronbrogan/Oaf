@@ -23,7 +23,7 @@
   <ItemGroup>
     <Content Include="build/Oaf.props" Pack="true" PackagePath="build/Oaf.props" />
     <Content Include="build/Oaf.targets" Pack="true" PackagePath="build/Oaf.targets" />
-    <Content Include="README.md" Pack="true" PackagePath="\" />
+    <Content Include="../README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
